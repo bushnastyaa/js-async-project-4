@@ -2,13 +2,28 @@ import fsp from 'fs/promises';
 import path from 'path';
 import { cwd } from 'node:process';
 import axios from 'axios';
-
-const replaceName = (url) => url.replace(/htt(p|ps):\/\//, '').replace(/\W/g, '-');
+import { downloadAssets, replaceName, loadingLinks } from './utils.js';
 
 export default (url, output = cwd()) => {
   const fileName = replaceName(url);
-  const outPath = path.join(output, fileName);
+  const assetsDir = `${fileName}_files`;
+  const outPath = path.join(output, assetsDir);
+  const htmlFilePath = path.join(output, `${fileName}.html`);
+  const { origin } = new URL(url);
+
   return axios.get(url)
-    .then(({ data }) => fsp.writeFile(`${outPath}.html`, data))
-    .catch((e) => { throw new Error(e); });
+    .then((response) => fsp.mkdir(outPath)
+      .then(() => (response.data)))
+    .then((response) => {
+      const { html, assets } = loadingLinks(response, assetsDir, origin);
+      const tasks = assets.map(([assetsUrl, assetsFilePath]) => {
+        const { href } = new URL(assetsUrl, origin);
+        return {
+          title: href,
+          task: () => downloadAssets(href, path.join(output, assetsFilePath)),
+        };
+      });
+    })
+    .then((response) => fsp.writeFile(htmlFilePath, response))
+    .then(() => htmlFilePath);
 };
