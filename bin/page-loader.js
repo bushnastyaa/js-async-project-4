@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { createRequire } from 'module';
 import pageLoader from '../src/index.js';
 
-const require = createRequire(import.meta.url)
+const require = createRequire(import.meta.url);
 const { version } = require('../package.json');
 
 const program = new Command();

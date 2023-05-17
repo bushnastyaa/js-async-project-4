@@ -1,7 +1,7 @@
 import fsp from 'fs/promises';
 import path from 'path';
 import { cwd } from 'node:process';
-import axios from 'axios'
+import axios from 'axios';
 import Listr from 'listr';
 import { downloadAssets, replaceName, loadingLinks } from './utils.js';
 

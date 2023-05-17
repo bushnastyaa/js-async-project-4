@@ -1,8 +1,10 @@
-import { describe, test, expect, beforeAll } from '@jest/globals';
-import path from 'path';
-import fs from 'fs/promises';
+import { 
+  describe, test, expect, beforeAll 
+} from '@jest/globals';
 import nock from 'nock';
+import fs from 'fs/promises';
 import os from 'os';
+import path from 'path';
 import pageLoader from '../src/index.js';
 
 const assets = [
@@ -42,16 +44,16 @@ describe('Loading pages with commander', () => {
 
   test('Should return path with url', async () => {
     const fileName = 'ru-hexlet-io-courses.html';
-    const actual = await fs.readFile(path.join(output, fileName), 'utf-8');
+    const received = await fs.readFile(path.join(output, fileName), 'utf-8');
     const expected = await fs.readFile(path.join('__fixtures__', fileName), 'utf-8');
 
-    expect(actual).toBe(expected);
+    expect(received).toBe(expected);
   });
 
   test.each(assets)('Should return path with url and arguments', async ({ filePath }) => {
-    const actual = await fs.readFile(path.join(output, filePath), 'utf-8');
+    const received = await fs.readFile(path.join(output, filePath), 'utf-8');
     const expected = await fs.readFile(path.join('__fixtures__', filePath), 'utf-8');
 
-    expect(actual).toBe(expected);
+    expect(received).toBe(expected);
   });
 });
