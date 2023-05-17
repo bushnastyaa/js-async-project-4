@@ -1,7 +1,8 @@
 import fsp from 'fs/promises';
 import path from 'path';
 import { cwd } from 'node:process';
-import axios from 'axios';
+import axios from 'axios'
+import Listr from 'listr';
 import { downloadAssets, replaceName, loadingLinks } from './utils.js';
 
 export default (url, output = cwd()) => {
@@ -23,6 +24,9 @@ export default (url, output = cwd()) => {
           task: () => downloadAssets(href, path.join(output, assetsFilePath)),
         };
       });
+      const task = new Listr(tasks, { concurrent: true, exitOnError: false });
+
+      return task.run(html);
     })
     .then((response) => fsp.writeFile(htmlFilePath, response))
     .then(() => htmlFilePath);
