@@ -55,3 +55,29 @@ describe('Loading pages with commander', () => {
     expect(received).toBe(expected);
   });
 });
+
+describe('Downloading files with errors', () => {
+  const url = 'https://ru.hexlet.io/courses';
+  let dirName;
+
+  beforeAll(async () => {
+    dirName = await fs.mkdtemp(path.join(os.tmpdir(), 'page-loader-'));
+  });
+
+  test.each([404, 500])('Fail with error code "%s"', async (err) => {
+    const wrongUrl = 'https://ru.hexlet.io/incorrect';
+    nock('https://ru.hexlet.io')
+      .get('/incorrect')
+      .reply(err);
+    await expect(pageLoader(wrongUrl, dirName)).rejects.toThrow(`Request failed with status code ${err}`);
+  });
+
+  test('Should fail with access denied directory', async () => {
+    fs.chmod(dirName, 0o400);
+    await expect(pageLoader(url, dirName)).rejects.toThrow('EACCES');
+  });
+
+  test('Should fail with non-existing directory', async () => {
+    await expect(pageLoader(url, '/fail/dir')).rejects.toThrow('ENOENT');
+  });
+});
