@@ -1,14 +1,17 @@
 install:
 	npm install
 
-publish:
-	npm publish --dry-run
+start:
+	node bin/pageloader.js
 
-link:
-	sudo npm link
+test:
+	npm test
+
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8
 
 lint:
 	npx eslint .
 
-jest:		
-	NODE_OPTIONS=--experimental-vm-modules npx jest --coverage
+publish:
+	npm publish --dry-run

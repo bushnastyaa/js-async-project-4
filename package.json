@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/bushnastyaa/js-async-project-4/workflows/hexlet-check/badge.svg)](https://github.com/bushnastyaa/js-async-project-4/actions)",
-  "main": "src/index.js",
+  "main": "index.js",
   "bin": {
     "page-loader": "bin/page-loader.js"
   },
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/bushnastyaa/js-async-project-4#readme",
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.21.5",
     "@jest/globals": "^29.5.0",
     "eslint": "^8.40.0",
     "eslint-config-airbnb-base": "^15.0.0",

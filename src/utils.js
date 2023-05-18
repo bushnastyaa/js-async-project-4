@@ -13,7 +13,10 @@ export const downloadAssets = (url, filePath) => axios
   .get(url, { responseType: 'arraybuffer' })
   .then(({ data }) => fsp.writeFile(filePath, data));
 
-export const replaceName = (url) => url.replace(/htt(p|ps):\/\//, '').replace(/\W/g, '-');
+export const replaceName = (url) => url.replace(new URL(url).protocol, '')
+  .split(/[^\d\sA-Z]/gi)
+  .filter((el) => el !== '')
+  .join('-');
 
 export const loadingLinks = (data, dirName, origin) => {
   const $ = cheerio.load(data);
