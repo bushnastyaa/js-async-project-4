@@ -30,5 +30,14 @@ Options:
   -h, --help          display help for command
 ```
 
-### Demo
+### Downloading files
 
+[![asciicast](https://asciinema.org/a/LXMZN45XFjR13p4ToNud5Ahsp.svg)](https://asciinema.org/a/LXMZN45XFjR13p4ToNud5Ahsp)
+
+### Debug
+
+[![asciicast](https://asciinema.org/a/DsidXl54bYkra4QoaWbqaNTts.svg)](https://asciinema.org/a/DsidXl54bYkra4QoaWbqaNTts)
+
+### Downloading with errors
+
+[![asciicast](https://asciinema.org/a/s4MnP822WfNqvPPconEI58lmm.svg)](https://asciinema.org/a/s4MnP822WfNqvPPconEI58lmm)
