@@ -1,8 +1,8 @@
 install:
 	npm install
 
-start:
-	node bin/pageloader.js
+link:
+	sudo npm link
 
 test:
 	npm test
